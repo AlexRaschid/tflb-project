@@ -1,6 +1,7 @@
-import { useState } from 'react'
 import './App.css'
+//import './components/board.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { useState } from 'react'
 
 import Board from './components/board'
 
@@ -14,11 +15,8 @@ function App() {
 
   return (
     //style padding cheap fix, use .css later
-    <Container fluid style={{ padding: 0 }}>
+    <Container>
       <Row>
-        <Col sm={2}>
-          <Button>Test</Button>
-        </Col>
         <Col>
           <Board></Board>
         </Col>
