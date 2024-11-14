@@ -49,9 +49,9 @@ export default function Board(){
                         <td>{player.change}</td>
                         <td>
                             <div>{player.name}</div>
-                            {player.steamName && <div>{player.steamName}</div>}
-                            {player.psnName && <div>{player.psnName}</div>}
-                            {player.xboxName && <div>{player.xboxName}</div>}
+                            {player.steamName && <div><i class="fa-brands fa-steam"/> {player.steamName}</div>}
+                            {player.psnName && <div><i class="fa-brands fa-playstation"/> {player.psnName}</div>}
+                            {player.xboxName && <div><i class="fa-brands fa-xbox"/> {player.xboxName}</div>}
                         </td>
                         <td>
                             <div>{player.league}</div>
