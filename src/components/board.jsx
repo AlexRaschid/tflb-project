@@ -2,6 +2,8 @@ import './Board.css'
 import React  from 'react'
 import Table from 'react-bootstrap/Table';
 import axios from 'axios';
+import Container from 'react-bootstrap/Container';
+import { Image } from 'react-bootstrap';
 
 import { useQuery } from '@tanstack/react-query';
 
@@ -43,18 +45,27 @@ export default function Board(){
             </thead>
 
             <tbody>
-                {data && data.data.slice(0,25).map((player, index) => (
+                {data && data.data.slice(3000,3025).map((player, index) => (
                     <tr key={index}>
                         <td>{player.rank}</td>
                         <td>{player.change}</td>
                         <td>
                             <div>{player.name}</div>
-                            {player.steamName && <div><i class="fa-brands fa-steam"/> {player.steamName}</div>}
-                            {player.psnName && <div><i class="fa-brands fa-playstation"/> {player.psnName}</div>}
-                            {player.xboxName && <div><i class="fa-brands fa-xbox"/> {player.xboxName}</div>}
+                            {player.steamName && <div><i className="fa-brands fa-steam"/> {player.steamName}</div>}
+                            {player.psnName && <div><i className="fa-brands fa-playstation"/> {player.psnName}</div>}
+                            {player.xboxName && <div><i className="fa-brands fa-xbox"/> {player.xboxName}</div>}
                         </td>
                         <td>
-                            <div>{player.league}</div>
+                            <div>
+                                {player.league && (
+                                    <Image 
+                                        thumbnail 
+                                        fluid
+                                        className="leagueImage"
+                                        src={`../../public/Images/leagues/${player.league.toLowerCase().replace(/ /g, '-')}.png`}/>
+                                )}
+                                <div>{player.league}</div>
+                            </div>
                             <div>{player.rankScore.toLocaleString()}</div>
                         </td>
                     </tr>
@@ -62,4 +73,25 @@ export default function Board(){
             </tbody>
         </Table>
     );
+}
+
+{
+    /*
+    <Container fluid style={{ padding: 0 }}>
+        <Row>
+            <Col>
+                {player.league && (
+                    <Image 
+                        thumbnail 
+                        fluid
+                        className="leagueImage"
+                        src={`../../public/Images/leagues/${player.league.toLowerCase().replace(/ /g, '-')}.png`}/>
+                )}
+            </Col>
+            <Col>
+                <div>{player.league}</div>
+            </Col>
+        </Row>
+    </Container>
+    */
 }
