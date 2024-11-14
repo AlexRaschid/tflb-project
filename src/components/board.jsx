@@ -1,3 +1,4 @@
+import './board.css'
 import React  from 'react'
 import Table from 'react-bootstrap/Table';
 
@@ -8,29 +9,31 @@ export default function board(){
         <Table striped bordered hover>
             <thead>
                 <tr>
-                    <th>#</th>
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                    <th>Username</th>
+                    <th>Rank</th>
+                    <th>24h</th>
+                    <th>Name</th>
+                    <th>League</th>
                 </tr>
             </thead>
+
             <tbody>
                 <tr>
                     <td>1</td>
-                    <td>Mark</td>
+                    <td>0</td>
                     <td>Otto</td>
-                    <td>@mdo</td>
+                    <td>Ruby</td>
                 </tr>
                 <tr>
                     <td>2</td>
-                    <td>Jacob</td>
+                    <td>+1</td>
                     <td>Thornton</td>
-                    <td>@fat</td>
+                    <td>Diamond II</td>
                 </tr>
-                    <tr>
+                <tr>
                     <td>3</td>
-                    <td colSpan={2}>Larry the Bird</td>
-                    <td>@twitter</td>
+                    <td>-1</td>
+                    <td>Larry the Bird</td>
+                    <td>Platinum III</td>
                 </tr>
             </tbody>
         </Table>
