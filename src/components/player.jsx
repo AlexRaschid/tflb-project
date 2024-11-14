@@ -1,9 +1,4 @@
-//https://github.com/leonlarsson/the-finals-api
-//https://api.the-finals-leaderboard.com/#tag/leaderboards
-//example: https://api.the-finals-leaderboard.com/v1/leaderboard/s4sponsor/crossplay
 
-const BASE_URL = "https://api.the-finals-leaderboard.com";
-const S4_LB = "/v1/leaderboard/s4/";
 
 export default function Player(){
     return(
