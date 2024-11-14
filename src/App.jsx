@@ -3,7 +3,7 @@ import './App.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useState } from 'react'
 
-import Board from './components/board'
+import Board from './components/Board.jsx'
 
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
