@@ -43,7 +43,7 @@ export default function Board(){
             </thead>
 
             <tbody>
-                {data && data.data.map((player, index) => (
+                {data && data.data.slice(0,25).map((player, index) => (
                     <tr key={index}>
                         <td>{player.rank}</td>
                         <td>{player.change}</td>
