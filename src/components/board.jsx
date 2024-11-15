@@ -2,8 +2,10 @@ import './Board.css'
 import React  from 'react'
 import Table from 'react-bootstrap/Table';
 import axios from 'axios';
-import Container from 'react-bootstrap/Container';
 import { Image } from 'react-bootstrap';
+import { Container, Row, Col } from 'react-bootstrap';
+import Button from 'react-bootstrap/Button';
+import Card from 'react-bootstrap/Card';
 
 import { useQuery } from '@tanstack/react-query';
 
@@ -57,16 +59,28 @@ export default function Board(){
                         </td>
                         <td>
                             <div>
-                                {player.league && (
-                                    <Image 
-                                        thumbnail 
-                                        fluid
-                                        className="leagueImage"
-                                        src={`../../public/Images/leagues/${player.league.toLowerCase().replace(/ /g, '-')}.png`}/>
-                                )}
-                                <div>{player.league}</div>
+
+                                <Container>
+                                    <Row className="justify-content-md-center">
+                                        <Col xs>
+                                            {player.league && (
+                                                <Image 
+                                                    thumbnailCircle 
+                                                    fluid
+                                                    className="leagueImage"
+                                                    src={`../../public/Images/leagues/${player.league.toLowerCase().replace(/ /g, '-')}.png`}/>
+                                            )}
+                                        </Col>
+                                        <Col xs>
+                                            <div>{player.league}</div>
+                                            <div>{player.rankScore.toLocaleString()}</div>
+                                        </Col>
+                                    </Row>
+                                </Container>
+                                
+                                
                             </div>
-                            <div>{player.rankScore.toLocaleString()}</div>
+                            
                         </td>
                     </tr>
                 ))}
@@ -93,5 +107,49 @@ export default function Board(){
             </Col>
         </Row>
     </Container>
+
+    <Container>
+        <Row>
+            <Col>
+                <Card>
+                    <Card.Img 
+                        src={`../../public/Images/leagues/${player.league.toLowerCase().replace(/ /g, '-')}.png`} />
+                    <Card.Body>
+                        <Card.Title>{player.league}</Card.Title>
+                        <Card.Text>{player.rankScore.toLocaleString()}</Card.Text>
+                    </Card.Body>
+                </Card>
+            </Col>
+        </Row>
+    </Container>
+
+    
+    
+    
+    
+    <div>
+        {player.league && (
+            <Image 
+                thumbnail 
+                fluid
+                className="leagueImage"
+                src={`../../public/Images/leagues/${player.league.toLowerCase().replace(/ /g, '-')}.png`}/>
+        )}
+        <div>{player.league}</div>
+    </div>
+    <div>{player.rankScore.toLocaleString()}</div>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     */
 }
