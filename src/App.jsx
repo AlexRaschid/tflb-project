@@ -4,11 +4,13 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import Button from 'react-bootstrap/Button';
 
 import {QueryClient, QueryClientProvider} from "@tanstack/react-query";
 
-import Board from './components/Board.jsx';
+//Reminder to rename board.jsx with a capital B, 
+// keeping the lowercase b, even though the file has a damn "B" in it,
+//keeps vscode annoying red error from showing up.
+import Board from './components/board.jsx';//Board.jsx
 
 const queryClient = new QueryClient();
 
@@ -52,6 +54,6 @@ export default App
         -Colors for 24h change?
 
 
-        
+
 
 */}
