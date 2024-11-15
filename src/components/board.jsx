@@ -9,25 +9,13 @@ import Card from 'react-bootstrap/Card';
 
 import { useQuery } from '@tanstack/react-query';
 
-//https://github.com/leonlarsson/the-finals-api
-//https://api.the-finals-leaderboard.com/#tag/leaderboards
-//example: https://api.the-finals-leaderboard.com/v1/leaderboard/s4/crossplay
-const fetchLeaderboard = async () => {
-    const response = await axios.get('https://api.the-finals-leaderboard.com/v1/leaderboard/s4/crossplay'); // Replace hardcoded crossplay with interchangable variable later
-    console.log("API response: ", response.data); //  debugging
-    return response.data;
-};
+import useLeaderboardData from '../hooks/useLeaderboardData.jsx'; //custom hook
 
-//const BASE_URL = "https://api.the-finals-leaderboard.com";
-//const S4_LB = "/v1/leaderboard/s4/";//crossplay 
 
 
 export default function Board(){ 
 
-    const { data, isLoading, error } = useQuery({
-        queryKey: ['leaderboard'], 
-        queryFn: fetchLeaderboard
-    });
+    const { data, isLoading, error } = useLeaderboardData();
 
     if (isLoading) return <div>Loading...</div>;
     if (error) {
@@ -47,7 +35,7 @@ export default function Board(){
             </thead>
 
             <tbody>
-                {data && data.data.slice(3000,3005).map((player, index) => (
+                {data && data.data.slice(0,1005).map((player, index) => (
                     <tr key={index}>
                         <td>{player.rank}</td>
                         <td>{player.change}</td>
@@ -65,7 +53,7 @@ export default function Board(){
                                             <Image 
                                                 fluid
                                                 className="leagueImage"
-                                                src={`../../public/Images/leagues/${player.league.toLowerCase().replace(/ /g, '-')}.png`}
+                                                src={`../../Images/leagues/${player.league.toLowerCase().replace(/ /g, '-')}.png`}
                                             /> 
                                         </div>
                                     )}
@@ -86,7 +74,17 @@ export default function Board(){
 }
 
 {
-    /*
+    
+   /*
+
+
+
+
+
+    Spare Code:
+
+
+
     <Container fluid style={{ padding: 0 }}>
         <Row>
             <Col>
