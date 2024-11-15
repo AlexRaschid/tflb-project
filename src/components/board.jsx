@@ -1,16 +1,9 @@
 import './Board.css'
 import React  from 'react'
 import Table from 'react-bootstrap/Table';
-import axios from 'axios';
-import { Image } from 'react-bootstrap';
-import { Container, Row, Col, Stack } from 'react-bootstrap';
-import Button from 'react-bootstrap/Button';
-import Card from 'react-bootstrap/Card';
 
-import { useQuery } from '@tanstack/react-query';
-
-import useLeaderboardData from '../hooks/useLeaderboardData.jsx'; //custom hook
-
+import useLeaderboardData from '../hooks/useLeaderboardData.jsx'; //custom hook]
+import PlayerRow from './PlayerRow.jsx';
 
 
 export default function Board(){ 
@@ -36,37 +29,9 @@ export default function Board(){
 
             <tbody>
                 {data && data.data.slice(0,1005).map((player, index) => (
-                    <tr key={index}>
-                        <td>{player.rank}</td>
-                        <td>{player.change}</td>
-                        <td>
-                            <div>{player.name}</div>
-                            {player.steamName && <div><i className="fa-brands fa-steam"/> {player.steamName}</div>}
-                            {player.psnName && <div><i className="fa-brands fa-playstation"/> {player.psnName}</div>}
-                            {player.xboxName && <div><i className="fa-brands fa-xbox"/> {player.xboxName}</div>}
-                        </td>
-                        <td>
-                            <div>
-                                <Stack direction="horizontal" gap={2} className="align-items-center justify-content-center">
-                                    {player.league && (
-                                        <div className="leagueImageDiv">
-                                            <Image 
-                                                fluid
-                                                className="leagueImage"
-                                                src={`../../Images/leagues/${player.league.toLowerCase().replace(/ /g, '-')}.png`}
-                                            /> 
-                                        </div>
-                                    )}
-                                    <div className="leagueTextDiv">
-                                        <Stack direction="vertical" className="align-items-center">
-                                            <div>{player.league}</div>
-                                            <div>{player.rankScore.toLocaleString()}</div>
-                                        </Stack>
-                                    </div>
-                                </Stack>
-                            </div>
-                        </td>
-                    </tr>
+                    <PlayerRow
+                        player={player}
+                        key={index}/>
                 ))}
             </tbody>
         </Table>
