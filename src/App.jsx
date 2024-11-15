@@ -8,7 +8,7 @@ import Button from 'react-bootstrap/Button';
 
 import {QueryClient, QueryClientProvider} from "@tanstack/react-query";
 
-import Board from './components/Board.jsx'
+import Board from './components/Board.jsx';
 
 const queryClient = new QueryClient();
 
