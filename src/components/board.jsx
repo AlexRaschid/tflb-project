@@ -5,6 +5,11 @@ import Table from 'react-bootstrap/Table';
 import useLeaderboardData from '../hooks/useLeaderboardData.jsx'; //custom hook]
 import PlayerRow from './PlayerRow.jsx';
 
+import Pagination from 'react-bootstrap/Pagination';
+import { Stack } from 'react-bootstrap';
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
+
 
 export default function Board(){ 
 
@@ -17,24 +22,40 @@ export default function Board(){
     }
 
     return (
-        <Table striped bordered hover>
-            <thead>
-                <tr>
-                    <th>Rank</th>
-                    <th>24h</th>
-                    <th>Name</th>
-                    <th>League</th>
-                </tr>
-            </thead>
+        <div>
+            <Stack direction="horizontal" gap={3}>
+                <Form.Control className="me-auto" placeholder="Search player names..." />
+                <Button variant="secondary">Search</Button>
+                
+                <Pagination >
+                    <Pagination.First />
+                    <Pagination.Prev />
 
-            <tbody>
-                {data && data.data.slice(0,1005).map((player, index) => (
-                    <PlayerRow
-                        player={player}
-                        key={index}/>
-                ))}
-            </tbody>
-        </Table>
+                    <Pagination.Next />
+                    <Pagination.Last />
+                </Pagination>
+            </Stack>
+
+            <Table striped bordered hover>
+                <thead>
+                    <tr>
+                        <th>Rank</th>
+                        <th>24h</th>
+                        <th>Name</th>
+                        <th>League</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {data && data.data.slice(0,1005).map((player, index) => (
+                        <PlayerRow
+                            player={player}
+                            key={index}
+                        />
+                    ))}
+                </tbody>
+            </Table>
+        </div>
     );
 }
 
