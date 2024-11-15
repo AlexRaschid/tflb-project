@@ -3,7 +3,7 @@ import React  from 'react'
 import Table from 'react-bootstrap/Table';
 import axios from 'axios';
 import { Image } from 'react-bootstrap';
-import { Container, Row, Col } from 'react-bootstrap';
+import { Container, Row, Col, Stack } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 
@@ -22,7 +22,7 @@ const fetchLeaderboard = async () => {
 //const S4_LB = "/v1/leaderboard/s4/";//crossplay 
 
 
-export default function Board(){
+export default function Board(){ 
 
     const { data, isLoading, error } = useQuery({
         queryKey: ['leaderboard'], 
@@ -47,7 +47,7 @@ export default function Board(){
             </thead>
 
             <tbody>
-                {data && data.data.slice(3000,3025).map((player, index) => (
+                {data && data.data.slice(3000,3005).map((player, index) => (
                     <tr key={index}>
                         <td>{player.rank}</td>
                         <td>{player.change}</td>
@@ -59,28 +59,24 @@ export default function Board(){
                         </td>
                         <td>
                             <div>
-
-                                <Container>
-                                    <Row className="justify-content-md-center">
-                                        <Col xs>
-                                            {player.league && (
-                                                <Image 
-                                                    thumbnailCircle 
-                                                    fluid
-                                                    className="leagueImage"
-                                                    src={`../../public/Images/leagues/${player.league.toLowerCase().replace(/ /g, '-')}.png`}/>
-                                            )}
-                                        </Col>
-                                        <Col xs>
+                                <Stack direction="horizontal" gap={2} className="align-items-center justify-content-center">
+                                    {player.league && (
+                                        <div className="leagueImageDiv">
+                                            <Image 
+                                                fluid
+                                                className="leagueImage"
+                                                src={`../../public/Images/leagues/${player.league.toLowerCase().replace(/ /g, '-')}.png`}
+                                            /> 
+                                        </div>
+                                    )}
+                                    <div className="leagueTextDiv">
+                                        <Stack direction="vertical" className="align-items-center">
                                             <div>{player.league}</div>
                                             <div>{player.rankScore.toLocaleString()}</div>
-                                        </Col>
-                                    </Row>
-                                </Container>
-                                
-                                
+                                        </Stack>
+                                    </div>
+                                </Stack>
                             </div>
-                            
                         </td>
                     </tr>
                 ))}
@@ -125,8 +121,6 @@ export default function Board(){
 
     
     
-    
-    
     <div>
         {player.league && (
             <Image 
@@ -141,15 +135,23 @@ export default function Board(){
     
     
     
+    <Stack direction="horizontal" gap={2} className="align-items-center">
+    {player.league && (
+        <div style={{ width: '50px', height: '50px', flexShrink: 0 }}>
+        <Image 
+            ** 
+            fluid
+            className="leagueImage"
+            src={`../../public/Images/leagues/${player.league.toLowerCase().replace(/ /g, '-')}.png`}
+        />
+        </div>
+    )}
+    <div>
+        <div>{player.league}</div>
+        <div>{player.rankScore.toLocaleString()}</div>
+    </div>
+    </Stack>
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
     */
 }
