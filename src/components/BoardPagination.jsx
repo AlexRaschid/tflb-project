@@ -14,6 +14,12 @@ export default function BoardPagination(props){
     const handlePreviousPage = () => props.setPageNumber(Math.max(1, props.pageNumber - 1));
 
     const handleNextPage = () => props.setPageNumber(Math.min(totalPages, props.pageNumber + 1));
+
+
+    function handleRowSizeChange(newPageSize) {
+        props.setPlayersPerPage(newPageSize);
+        props.setPageNumber(1); // Reset to the first page to avoid out-of-range pages
+    }
     
     return(
         <Stack direction="horizontal" gap={2} className="align-items-center justify-content-center">
@@ -22,6 +28,19 @@ export default function BoardPagination(props){
                 <span>Page {props.pageNumber} of {totalPages}</span>
             <Button variant="secondary" onClick={handleNextPage}>{">"}</Button>
             <Button variant="secondary" onClick={handleLastPage}>{">>"}</Button>
+
+            <div className="vr" />
+
+                <span># of rows</span>
+            <Dropdown>
+                <Dropdown.Toggle variant="success" id="dropdown-basic">{props.playersPerPage}</Dropdown.Toggle>
+                <Dropdown.Menu>
+                    <Dropdown.Item onClick={() => handleRowSizeChange(10)}>10</Dropdown.Item>
+                    <Dropdown.Item onClick={() => handleRowSizeChange(25)}>25</Dropdown.Item>
+                    <Dropdown.Item onClick={() => handleRowSizeChange(50)}>50</Dropdown.Item>
+                    <Dropdown.Item onClick={() => handleRowSizeChange(100)}>100</Dropdown.Item>
+                </Dropdown.Menu>
+            </Dropdown>
         </Stack>
     );
 }
