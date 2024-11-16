@@ -3,7 +3,7 @@ import Dropdown from 'react-bootstrap/Dropdown';
 
 export default function BoardHeader(){
     return(
-        <Stack direction="horizontal" gap={1}>
+        <Stack direction="horizontal" gap={2} className="align-items-center justify-content-center">
         <Dropdown>
             <Dropdown.Toggle variant="success" id="dropdown-basic">
                 s4 (current)

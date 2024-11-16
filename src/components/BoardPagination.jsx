@@ -1,3 +1,4 @@
+import './BoardPagination.css'
 import React from 'react';
 import { Stack, Button, Dropdown } from 'react-bootstrap';
 
@@ -15,7 +16,7 @@ export default function BoardPagination(props){
     const handleNextPage = () => props.setPageNumber(Math.min(totalPages, props.pageNumber + 1));
     
     return(
-        <Stack direction="horizontal" gap={1}>
+        <Stack direction="horizontal" gap={2} className="align-items-center justify-content-center">
             <Button variant="secondary" onClick={handleFirstPage}>{"<<"}</Button>
             <Button variant="secondary" onClick={handlePreviousPage}>{"<"}</Button>
                 <span>Page {props.pageNumber} of {totalPages}</span>
