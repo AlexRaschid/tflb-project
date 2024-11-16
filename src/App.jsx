@@ -10,7 +10,7 @@ import {QueryClient, QueryClientProvider} from "@tanstack/react-query";
 //Reminder to rename board.jsx with a capital B, 
 // keeping the lowercase b, even though the file has a damn "B" in it,
 //keeps vscode annoying red error from showing up.
-import BoardMain from './components/BoardMain.jsx';//Board.jsx
+import BoardLogic from './components/BoardLogic.jsx';//Board.jsx
 
 const queryClient = new QueryClient();
 
@@ -22,7 +22,7 @@ function App() {
       <Container>
             <Row>
               <Col>
-                <BoardMain></BoardMain>
+                <BoardLogic></BoardLogic>
               </Col>
             </Row>
       </Container> 
