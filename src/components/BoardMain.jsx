@@ -1,60 +1,44 @@
-import './Board.css'
+import './BoardMain.css'
 import React  from 'react'
-import Table from 'react-bootstrap/Table';
 
 import useLeaderboardData from '../hooks/useLeaderboardData.jsx'; //custom hook]
-import PlayerRow from './PlayerRow.jsx';
+import { useState } from 'react';
 
-import Pagination from 'react-bootstrap/Pagination';
-import { Stack } from 'react-bootstrap';
-import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
+
+import BoardHeader from './BoardHeader.jsx';
+import BoardPagination from './BoardPagination.jsx';
+import BoardTable from './BoardTable.jsx';
+
+
 
 
 export default function Board(){ 
 
     const { data, isLoading, error } = useLeaderboardData();
+    const [pageNumber, setPageNumber] = useState(1);
+    const [playersPerPage, setPlayersPerPage] = useState(10);
 
     if (isLoading) return <div>Loading...</div>;
-    if (error) {
-        console.error("Error fetching leaderboard:", error); // Log the error for debugging
-        return <div>Error loading leaderboard data.</div>;
-    }
+    if (error) return <div>Error loading leaderboard data.</div>;
+
+    const players = data?.data || [];
+    const pagesVisited = (pageNumber - 1) * playersPerPage;
+
+    const displayedPlayers = players.slice(pagesVisited, pagesVisited + playersPerPage);
+
+    const handlePrevious = () => setPageNumber((prev) => Math.max(prev - 1, 1));
+    const handleNext = () => setPageNumber((prev) => prev + 1);
+    const handlePageSizeChange = (size) => setPlayersPerPage(size);
 
     return (
         <div>
-            <Stack direction="horizontal" gap={3}>
-                <Form.Control className="me-auto" placeholder="Search player names..." />
-                <Button variant="secondary">Search</Button>
-                
-                <Pagination >
-                    <Pagination.First />
-                    <Pagination.Prev />
-
-                    <Pagination.Next />
-                    <Pagination.Last />
-                </Pagination>
-            </Stack>
-
-            <Table striped bordered hover>
-                <thead>
-                    <tr>
-                        <th>Rank</th>
-                        <th>24h</th>
-                        <th>Name</th>
-                        <th>League</th>
-                    </tr>
-                </thead>
-
-                <tbody>
-                    {data && data.data.slice(0,1005).map((player, index) => (
-                        <PlayerRow
-                            player={player}
-                            key={index}
-                        />
-                    ))}
-                </tbody>
-            </Table>
+            <BoardHeader />
+            <BoardPagination
+                onPrevious={handlePrevious}
+                onNext={handleNext}
+                onPageSizeChange={handlePageSizeChange}
+            />
+            <BoardTable players={displayedPlayers} />
         </div>
     );
 }
