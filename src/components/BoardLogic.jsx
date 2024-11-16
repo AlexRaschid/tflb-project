@@ -1,4 +1,3 @@
-import './BoardMain.css'
 import React  from 'react'
 
 import useLeaderboardData from '../hooks/useLeaderboardData.jsx'; //custom hook]
@@ -8,7 +7,7 @@ import BoardHeader from './BoardHeader.jsx';
 import BoardPagination from './BoardPagination.jsx';
 import BoardTable from './BoardTable.jsx';
 
-export default function Board(){ 
+export default function BoardLogic(){ 
 
     const { data, isLoading, error } = useLeaderboardData();
     const [pageNumber, setPageNumber] = useState(1);
