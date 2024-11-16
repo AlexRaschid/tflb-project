@@ -3,9 +3,13 @@ import React  from 'react'
 import useLeaderboardData from '../hooks/useLeaderboardData.jsx'; //custom hook]
 import { useState } from 'react';
 
-import BoardHeader from './BoardHeader.jsx';
+import { Stack } from 'react-bootstrap';
+
+
+import BoardHeader from './BoardSearch.jsx';
 import BoardPagination from './BoardPagination.jsx';
 import BoardTable from './BoardTable.jsx';
+import BoardPaginationRows from './BoardRowsPerPage.jsx';
 
 export default function BoardLogic(){ 
 
@@ -24,16 +28,29 @@ export default function BoardLogic(){
     const pagesVisited = (pageNumber - 1) * playersPerPage;
     const displayedPlayers = players.slice(pagesVisited, pagesVisited + playersPerPage);
 
+    function handleRowSizeChange(newPageSize) {
+        setPlayersPerPage(newPageSize);
+        setPageNumber(1); // Reset to the first page to avoid out-of-range pages
+    }
 
     return (
         <div>
-            <BoardHeader />
+            <Stack direction="horizontal" gap={2} className="align-items-center justify-content-center">
+                <BoardHeader />
+                <div className="vr" />
+                <BoardPaginationRows
+                    handleRowSizeChange={handleRowSizeChange}
+                    playersPerPage={playersPerPage}
+                />
+            </Stack>
+            
             <BoardPagination
                 playersPerPage={playersPerPage}
                 totalPlayers={players.length}
                 pageNumber={pageNumber}
                 setPageNumber={setPageNumber}
                 setPlayersPerPage={setPlayersPerPage}
+                handleRowSizeChange={handleRowSizeChange}
             />
             <div className="table-container">
                 <BoardTable players={displayedPlayers} />
