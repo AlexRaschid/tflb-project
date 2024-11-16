@@ -1,9 +1,10 @@
 // LeaderboardTable.jsx
+import './BoardTable.css'
 import React from 'react';
 import Table from 'react-bootstrap/Table';
 import PlayerRow from './PlayerRow';
 
-export default function LeaderboardTable({ players }) {
+export default function BoardTable({ players }) {
     return (
         <Table striped bordered hover>
             <thead>
