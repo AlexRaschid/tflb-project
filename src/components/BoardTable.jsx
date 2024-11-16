@@ -6,13 +6,20 @@ import PlayerRow from './PlayerRow';
 
 export default function BoardTable({ players }) {
     return (
-        <Table striped bordered hover>
+        <Table 
+            striped 
+            bordered 
+            hover 
+            responsive="md" 
+            className="leaderboard-table"
+        >
+
             <thead>
                 <tr>
-                    <th>Rank</th>
-                    <th>24h</th>
-                    <th>Name</th>
-                    <th>League</th>
+                    <th className="rank-col">Rank</th>
+                    <th className="change-col">24h</th>
+                    <th className="name-col">Name</th>
+                    <th className="league-col">League</th>
                 </tr>
             </thead>
             <tbody>

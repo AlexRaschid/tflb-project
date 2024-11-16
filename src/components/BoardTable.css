@@ -3,10 +3,30 @@
   align-items: center;
 }
 
-th, td{
-  text-align: center;
-  vertical-align: middle;
+.leaderboard-table {
+    table-layout: fixed; /* Ensures columns keep their assigned widths */
+    width: 100%; /* Full width to fit container */
 }
 
+.leaderboard-table th,
+.leaderboard-table td {
+    text-align: center;
+    vertical-align: middle;
+    white-space: nowrap; /* Prevents text from wrapping */
+    overflow: hidden; /* Ensures text stays within cell bounds */
+    text-overflow: ellipsis; /* Adds "..." for overflowed text */
+}
 
+.rank-col {
+    width: 15%;
+}
+
+.change-col {
+    width: 25%; /* Allow this column to shrink if necessary */
+}
+
+.name-col,
+.league-col {
+    width: 35%;
+}
 
