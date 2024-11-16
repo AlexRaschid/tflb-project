@@ -4,39 +4,36 @@ import React  from 'react'
 import useLeaderboardData from '../hooks/useLeaderboardData.jsx'; //custom hook]
 import { useState } from 'react';
 
-
 import BoardHeader from './BoardHeader.jsx';
 import BoardPagination from './BoardPagination.jsx';
 import BoardTable from './BoardTable.jsx';
-
-
-
 
 export default function Board(){ 
 
     const { data, isLoading, error } = useLeaderboardData();
     const [pageNumber, setPageNumber] = useState(1);
-    const [playersPerPage, setPlayersPerPage] = useState(10);
+    const [playersPerPage, setPlayersPerPage] = useState(10);// default 10 players per page
 
     if (isLoading) return <div>Loading...</div>;
     if (error) return <div>Error loading leaderboard data.</div>;
 
-    const players = data?.data || [];
+    // Calculate the players to display on the current page
+    let players = [];
+    if (data && data.data) {
+        players = data.data;
+    }
     const pagesVisited = (pageNumber - 1) * playersPerPage;
-
     const displayedPlayers = players.slice(pagesVisited, pagesVisited + playersPerPage);
 
-    const handlePrevious = () => setPageNumber((prev) => Math.max(prev - 1, 1));
-    const handleNext = () => setPageNumber((prev) => prev + 1);
-    const handlePageSizeChange = (size) => setPlayersPerPage(size);
 
     return (
         <div>
             <BoardHeader />
             <BoardPagination
-                onPrevious={handlePrevious}
-                onNext={handleNext}
-                onPageSizeChange={handlePageSizeChange}
+                playersPerPage={playersPerPage}
+                totalPlayers={players.length}
+                pageNumber={pageNumber}
+                setPageNumber={setPageNumber}
             />
             <BoardTable players={displayedPlayers} />
         </div>
