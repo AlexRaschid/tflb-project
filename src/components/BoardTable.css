@@ -3,6 +3,11 @@
   align-items: center;
 }
 
+.table-container {
+    max-height: 1000px; /* Set a fixed height for the table container */
+    overflow-y: auto;  /* Make the table body scrollable */
+}
+
 .leaderboard-table {
     table-layout: fixed; /* Ensures columns keep their assigned widths */
     width: 100%; /* Full width to fit container */

@@ -35,7 +35,9 @@ export default function BoardLogic(){
                 setPageNumber={setPageNumber}
                 setPlayersPerPage={setPlayersPerPage}
             />
-            <BoardTable players={displayedPlayers} />
+            <div className="table-container">
+                <BoardTable players={displayedPlayers} />
+            </div>
         </div>
     );
 }
