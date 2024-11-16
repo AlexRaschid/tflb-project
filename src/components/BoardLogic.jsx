@@ -33,6 +33,7 @@ export default function BoardLogic(){
                 totalPlayers={players.length}
                 pageNumber={pageNumber}
                 setPageNumber={setPageNumber}
+                setPlayersPerPage={setPlayersPerPage}
             />
             <BoardTable players={displayedPlayers} />
         </div>
