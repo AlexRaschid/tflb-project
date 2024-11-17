@@ -1,5 +1,5 @@
-import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
+import { useQuery } from "@tanstack/react-query";
 
 //https://github.com/leonlarsson/the-finals-api
     //https://api.the-finals-leaderboard.com/#tag/leaderboards
