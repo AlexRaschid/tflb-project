@@ -1,7 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import useLeaderboardData from '../hooks/useLeaderboardData';
 import { Stack } from 'react-bootstrap';
-import BoardHeader from './BoardSearch';
+import BoardSearch from './BoardSearch';
 import BoardPagination from './BoardPagination';
 import BoardTable from './BoardTable';
 import BoardRowsPerPage from './BoardRowsPerPage';
@@ -14,12 +14,15 @@ export default function BoardLogic() {
     const [pageNumber, setPageNumber] = useState(1);
     const [playersPerPage, setPlayersPerPage] = useState(10);
 
-    // Sorting state
+    // Search query state
+    const [searchQuery, setSearchQuery] = useState('');
+
+    // Table Sorting state
     const [sortConfig, setSortConfig] = useState({
         key: null,
         direction: null
     });
-    console.log(sortConfig);
+    // console.log(sortConfig);
 
     // Extract and memoize players array from data response
     const players = useMemo(() => {
@@ -29,28 +32,34 @@ export default function BoardLogic() {
         return [];
     }, [data]);
 
-    // Sorting logic (same for both rank and league)
+    // Filter players based on search query
+    const filteredPlayers = useMemo(() => {
+        if (!searchQuery) return players;
+        return players.filter(player =>
+            player.name.toLowerCase().includes(searchQuery.toLowerCase())
+        );
+    }, [players, searchQuery]);
+
+    // Table Sorting logic (same for both rank and league)
     const sortedPlayers = useMemo(() => {
         if (sortConfig.key === null) {
-            return players; // Return original order when neutral
+            return filteredPlayers; // Return original order when neutral
         }
-    
-        return [...players].sort((firstPlayer, secondPlayer) => {
+
+        return [...filteredPlayers].sort((firstPlayer, secondPlayer) => {
             let firstValue = firstPlayer[sortConfig.key];
             let secondValue = secondPlayer[sortConfig.key];
-    
-            // Use rank for sorting when league is selected
-            if (sortConfig.key === 'league') {
+
+            if (sortConfig.key === 'league') { // Use rank for sorting when league is selected
                 firstValue = Number(firstPlayer.rank);
                 secondValue = Number(secondPlayer.rank);
             }
-    
-            // Handle rank (as a numeric value)
-            if (sortConfig.key === 'rank') {
+
+            if (sortConfig.key === 'rank') { // Handle rank (as a numeric value)
                 firstValue = Number(firstValue);
                 secondValue = Number(secondValue);
             }
-    
+
             if (firstValue < secondValue) {
                 return sortConfig.direction === 'asc' ? -1 : 1;
             }
@@ -59,7 +68,7 @@ export default function BoardLogic() {
             }
             return 0;
         });
-    }, [players, sortConfig]);
+    }, [filteredPlayers, sortConfig]);
 
     // Calculate displayed players based on current page and sorted data
     const displayedPlayers = useMemo(() => {
@@ -90,20 +99,25 @@ export default function BoardLogic() {
         });
     };
 
+    // Handler for search query change
+    const handleSearchChange = (event) => {
+        setSearchQuery(event.target.value);
+    };
+
     if (isLoading) return <div>Loading...</div>;
     if (error) return <div>Error loading leaderboard data.</div>;
 
     return (
         <div>
             <Stack direction="horizontal" gap={2} className="align-items-center justify-content-center">
-                <BoardHeader />
+                <BoardSearch handleSearchChange={handleSearchChange} />
                 <div className="vr" />
                 <BoardRowsPerPage
                     handleRowSizeChange={handleRowSizeChange}
                     playersPerPage={playersPerPage}
                 />
             </Stack>
-            
+
             <BoardPagination
                 playersPerPage={playersPerPage}
                 totalPlayers={players.length}
@@ -112,9 +126,9 @@ export default function BoardLogic() {
                 setPlayersPerPage={setPlayersPerPage}
                 handleRowSizeChange={handleRowSizeChange}
             />
-            
+
             <div className="table-container">
-                <BoardTable 
+                <BoardTable
                     players={displayedPlayers}
                     onSort={handleSort}
                     sortConfig={sortConfig}
@@ -130,7 +144,6 @@ const getNextSortState = (currentState) => {
     if (currentState === 'desc') return 'asc';
     return null;
 };
-
 
 {/*
     

@@ -1,7 +1,7 @@
 import { Stack, Form, Button } from "react-bootstrap";
 import Dropdown from 'react-bootstrap/Dropdown';
 
-export default function BoardSearch(){
+export default function BoardSearch({ handleSearchChange }){
     return(
         <Stack direction="horizontal" gap={2} className="align-items-center justify-content-center">
             <Dropdown>
@@ -15,7 +15,11 @@ export default function BoardSearch(){
                 </Dropdown.Menu>
             </Dropdown>
             <Form>
-                <Form.Control className="me-auto" placeholder="Search player names..." />
+                <Form.Control
+                    className="me-auto"
+                    placeholder="Search player names..."
+                    onChange={handleSearchChange}
+                />
             </Form>
         </Stack>
     );
