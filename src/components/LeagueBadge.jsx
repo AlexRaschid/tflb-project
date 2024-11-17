@@ -17,7 +17,7 @@ export default function LeagueBadge({ league, rankScore }) {
             <div className="leagueTextDiv">
                 <Stack direction="vertical" className="align-items-center">
                     <div>{league}</div>
-                    <div>{rankScore.toLocaleString()}</div>
+                    {rankScore && <div>{rankScore}</div>}
                 </Stack>
             </div>
         </Stack>
