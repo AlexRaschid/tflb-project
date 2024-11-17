@@ -21,7 +21,7 @@ const fetchLeaderboard = async () => {
 };
 
 
-export default function useFetchLeaderboard() {
+export default function useLeaderboardData() {
 
     return useQuery({
         queryKey: ['leaderboard'], 
