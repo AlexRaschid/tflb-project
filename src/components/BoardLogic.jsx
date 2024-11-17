@@ -39,7 +39,6 @@ export default function BoardLogic() {
         <div>
             <Stack direction="horizontal" gap={2} className="align-items-center justify-content-center">
                 <BoardSearch handleSearchChange={handleSearchChange} />
-                <div className="vr" />
                 <BoardRowsPerPage handleRowSizeChange={handleRowSizeChange} playersPerPage={rowsPerPage} />
             </Stack>
 
