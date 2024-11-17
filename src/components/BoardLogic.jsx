@@ -94,14 +94,24 @@ export default function BoardLogic() {
     const handleRowSizeChange = (newPageSize) => {
         setPlayersPerPage(newPageSize);
         setPageNumber(prevPageNumber => {
-            const newTotalPages = Math.ceil(players.length / newPageSize);
+            const newTotalPages = Math.ceil(filteredPlayers.length / newPageSize);
             return Math.min(prevPageNumber, newTotalPages);
         });
     };
 
     // Handler for search query change
     const handleSearchChange = (event) => {
-        setSearchQuery(event.target.value);
+        const newSearchQuery = event.target.value;
+        setSearchQuery(newSearchQuery);
+    
+        // Calculate the new total number of pages based on the filtered players
+        const newFilteredPlayers = players.filter(player =>
+            player.name.toLowerCase().includes(newSearchQuery.toLowerCase())
+        );
+        const newTotalPages = Math.ceil(newFilteredPlayers.length / playersPerPage);
+    
+        // Adjust the current page number if it exceeds the new total number of pages
+        setPageNumber(prevPageNumber => Math.min(prevPageNumber, newTotalPages));
     };
 
     if (isLoading) return <div>Loading...</div>;
@@ -120,7 +130,7 @@ export default function BoardLogic() {
 
             <BoardPagination
                 playersPerPage={playersPerPage}
-                totalPlayers={players.length}
+                totalPlayers={filteredPlayers.length}
                 pageNumber={pageNumber}
                 setPageNumber={setPageNumber}
                 setPlayersPerPage={setPlayersPerPage}
