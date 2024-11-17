@@ -84,7 +84,10 @@ export default function BoardLogic() {
     // Handler for changing number of rows per page
     const handleRowSizeChange = (newPageSize) => {
         setPlayersPerPage(newPageSize);
-        setPageNumber(1);
+        setPageNumber(prevPageNumber => {
+            const newTotalPages = Math.ceil(players.length / newPageSize);
+            return Math.min(prevPageNumber, newTotalPages);
+        });
     };
 
     if (isLoading) return <div>Loading...</div>;
@@ -96,7 +99,7 @@ export default function BoardLogic() {
                 <BoardHeader />
                 <div className="vr" />
                 <BoardRowsPerPage
-                    handleRowSizeChange={setPlayersPerPage}
+                    handleRowSizeChange={handleRowSizeChange}
                     playersPerPage={playersPerPage}
                 />
             </Stack>
@@ -127,10 +130,6 @@ const getNextSortState = (currentState) => {
     if (currentState === 'desc') return 'asc';
     return null;
 };
-
-
-
-
 
 
 {/*
